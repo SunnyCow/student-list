@@ -1,2 +1,2 @@
 # student-list
-Ungoing project for a simple CRUD application with routing and sessions.
+Ongoing project for a simple CRUD application with routing and sessions.
