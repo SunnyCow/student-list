@@ -1,2 +1,2 @@
 # student-list
-This is a simple CRUD application
+Ongoing project for a simple CRUD application with routing and sessions.
