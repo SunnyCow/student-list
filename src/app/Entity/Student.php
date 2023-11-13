@@ -180,5 +180,4 @@ class Student
     {
         $this->token = $token;
     }
-
 }
