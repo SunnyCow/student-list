@@ -20,7 +20,7 @@ try {
         strtolower($_SERVER['REQUEST_METHOD'])
     );
 } catch(\App\Exceptions\RouteNotFoundException $e) {
-//    header('HTTP/1.1 404 Not Found');
     http_response_code(404);
+
     echo App\View::make('error/404');
 }
