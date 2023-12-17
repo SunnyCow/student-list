@@ -27,6 +27,11 @@ class Router
         return $this->register('post', $route, $action);
     }
 
+    public function patch(string $route, callable|array $action): self
+    {
+        return $this->register('patch', $route, $action);
+    }
+
     public function routes(): array
     {
         return $this->routes;
