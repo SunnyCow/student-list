@@ -1,26 +1,26 @@
 <?php
 
+use App\App;
+use App\Controllers\StudentController;
+use App\Router;
+use App\Config;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
-session_start();
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
 
 define('VIEW_PATH', __DIR__ . '/../views');
 
-try {
-    $router = new App\Router();
+$router = new Router();
 
-    $router
-        ->get('/', [App\Controllers\HomeController::class, 'index'])
-        ->get('/students', [App\Controllers\StudentController::class, 'index'])
-        ->get('/students/create', [App\Controllers\StudentController::class, 'create'])
-        ->post('/students/create', [App\Controllers\StudentController::class, 'store']);
+$router
+    ->get('/', [StudentController::class, 'index'])
+    ->get('/create', [StudentController::class, 'create'])
+    ->post('/create', [StudentController::class, 'store']);
 
-    echo $router->resolve(
-        $_SERVER['REQUEST_URI'],
-        strtolower($_SERVER['REQUEST_METHOD'])
-    );
-} catch(\App\Exceptions\RouteNotFoundException $e) {
-    http_response_code(404);
-
-    echo App\View::make('error/404');
-}
+(new App(
+    $router,
+    ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
+    new Config($_ENV)
+))->run();
